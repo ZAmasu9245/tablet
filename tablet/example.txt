@@ -1,0 +1,35 @@
+APP EXAMPLE:
+
+local APP = {}
+
+APP.ID = "example_app" -- unique app id
+APP.Name = "Example" -- self-explanatory
+APP.SortOrder = 20 -- apps with lesser SortOrder number are displayed before the others
+APP.Icon = Material("ugc/tablet/example.png", "smooth") -- app icon, see appicon.psd for the template
+
+if SERVER then
+	resource.AddSingleFile("ugc/tablet/example.png") -- also don't forget to add this file to the fastdl
+end
+
+function APP:canUse(ply) 
+	return ply:IsUserGroup("admin") -- only admins are allowed to view and use this app
+end
+
+function APP:onOpen(layout, frame)
+	-- layout and frame are panels
+	-- use default apps as an example
+
+	-- you can overwrite frame.backFunction to change "back" button functionality
+	-- frame:openMainPage() -- closes current app and opens the main page
+	-- frame:scale(number) -- returns scaled number; it's essential if you want to keep menu supported on all resolutions, see examples in default apps
+	-- frame:openApp(id)
+	-- frame:closeApp()
+end
+
+tablet.addApp(APP) -- adds this app to the list
+
+FUNCTIONS:
+
+tablet.get() -- returns tablet's frame
+tablet.close() -- closes the frame (you have to check if frame is valid)
+tablet.toggle() -- toggles the tablet
